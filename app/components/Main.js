@@ -30,12 +30,11 @@ export default class Main extends Component {
     // console.log(this.state.noteArray)
     let notes = this.state.noteArray.map((val, index) => {
       return (
-        // console.log('key:', index, 'datewww:', val.date)
         <Note
           key={index}
           keyVal={index}
           val={val}
-          // deleteMethod={() => deleteNote(key)}
+          deleteMethod={() => this.deleteNote(index)}
         />
       );
     });
@@ -45,14 +44,9 @@ export default class Main extends Component {
           <Text style={styles.headerText}>-NOTER-</Text>
         </View>
 
-        <ScrollView style={styles.scrollContainer}>
-          <View><Text >Hello from Main</Text></View>
-          {/* <Note /> */}
-
-        {notes}
-        </ScrollView>
+        <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
         <View style={styles.footer}>
-          <TextInput 
+          <TextInput
           style={styles.textInput}
             placeholder=">note"
             onChangeText={(noteText) => this.setState({noteText})}
@@ -79,6 +73,10 @@ export default class Main extends Component {
       this.setState({noteArray: this.state.noteArray});
       this.setState({noteText: ''});
     }
+  }
+  deleteNote(key) {
+    this.state.noteArray.splice(key, 1);
+    this.setState({noteArray: this.state.noteArray});
   }
 }
 const styles = StyleSheet.create({
